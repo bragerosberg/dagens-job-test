@@ -1,0 +1,4 @@
+.form__product {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,6 +1,8 @@
+import Form from './components/Form';
+
 const App = () => (
   <div className="app">
-    <h3>Happy hacking!</h3>
+    <Form />
   </div>
 );
 
