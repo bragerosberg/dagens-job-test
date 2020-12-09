@@ -17,7 +17,8 @@ const Form = () => {
         setEntryCategory(value);
         break;
       case "price":
-        setEntryPrice(value);
+        console.log(typeof parseInt(value))
+        setEntryPrice(parseInt(value));
         break;
       default:
         console.log('Category of submission is not supported');

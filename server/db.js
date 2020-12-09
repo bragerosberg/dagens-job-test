@@ -6000,18 +6000,6 @@ const products =
     "category": "meat",
     "price": 781
   },
-  {
-    "id": "773d4583-66a4-4937-b157-23d2b98941be",
-    "name": "banan",
-    "category": "greens",
-    "price": "50"
-  },
-  {
-    "id": "6801da24-66fa-418a-8822-3e577c6c4195",
-    "name": "banan",
-    "category": "greens",
-    "price": "50"
-  }
 ];
 
   module.exports = products;
