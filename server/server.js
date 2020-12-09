@@ -6,7 +6,6 @@ const fs = require('fs');
 const cors = require('cors')
 const products = require('./db');
 const { v4: uuidv4 } = require('uuid');
-const { nextTick } = require('process');
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +22,6 @@ app.get('/', (_, res) => {
 });
 
 app.get('/products', (req, res) => {
-  const results = Object.entries(products);
   const limit = 24;
   
   // example search: http://localhost:3001/products?page=1&category=greens&minPrice=200&maxPrice=400
@@ -35,11 +33,11 @@ app.get('/products', (req, res) => {
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit; 
   
-  const sort = products.reduce((res, cVal) => {
+  const sort = products.reduce((acc, cVal) => {
     if (cVal.category === category && cVal.price >= minPrice && cVal.price <= maxPrice) {
-      res.push(cVal);
+      acc.push(cVal);
     }
-    return res;
+    return acc;
   }, []);
 
   const sortedResult = Object.entries(sort).slice(startIndex, endIndex);
@@ -52,11 +50,11 @@ app.get('/search/:id', (req, res) => {
   const found = products.find(product => product.id === id);
   const { price, category } = found;
 
-  const sort = products.reduce((res, cVal) => {
+  const sort = products.reduce((acc, cVal) => {
     if (cVal.category === category && cVal.price >= price) {
-      res.push(cVal);
+      acc.push(cVal);
     }
-    return res;
+    return acc;
   }, []);
 
   const similiarProducts = Object.entries(sort).slice(0, limit);
