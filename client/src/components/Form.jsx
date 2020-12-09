@@ -17,7 +17,6 @@ const Form = () => {
         setEntryCategory(value);
         break;
       case "price":
-        console.log(typeof parseInt(value))
         setEntryPrice(parseInt(value));
         break;
       default:

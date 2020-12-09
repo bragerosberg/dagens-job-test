@@ -44,6 +44,24 @@ app.get('/products', (req, res) => {
 
   const sortedResult = Object.entries(sort).slice(startIndex, endIndex);
   res.send({ status: 200, page, category, minPrice, maxPrice, sortedResult });
+});
+
+app.get('/search/:id', (req, res) => {
+  const limit = 24; 
+  const { id } = req.params;
+  const found = products.find(product => product.id === id);
+  const { price, category } = found;
+
+  const sort = products.reduce((res, cVal) => {
+    if (cVal.category === category && cVal.price >= price) {
+      res.push(cVal);
+    }
+    return res;
+  }, []);
+
+  const similiarProducts = Object.entries(sort).slice(0, limit);
+
+  res.send({ status: 200, price, category, id, similiarProducts });
 })
 
 /***************** POST *****************/
