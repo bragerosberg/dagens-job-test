@@ -74,7 +74,7 @@ app.post('/createproduct', (req, _) => {
     id: uuidv4(),
     name,
     category,
-    price
+    price: parseInt(price)
   };
 
   const entry = JSON.stringify([...products, newEntry], null, 2); 
