@@ -5999,7 +5999,7 @@ const products =
     "name": "deer",
     "category": "meat",
     "price": 781
-  },
+  }
 ];
 
   module.exports = products;

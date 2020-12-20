@@ -26,7 +26,7 @@ app.get('/products', (req, res) => {
   
   // example search: http://localhost:3001/products?page=1&category=greens&minPrice=200&maxPrice=400
   const page = parseInt(req.query.page) || 1; 
-  const category = req.query.category; 
+  const { category } = req.query; 
   const minPrice = parseInt(req.query.minPrice) || 0; 
   const maxPrice = parseInt(req.query.maxPrice) || 9999; 
 
@@ -41,6 +41,7 @@ app.get('/products', (req, res) => {
   }, []);
 
   const sortedResult = Object.entries(sort).slice(startIndex, endIndex);
+
   res.send({ status: 200, page, category, minPrice, maxPrice, sortedResult });
 });
 
@@ -58,15 +59,13 @@ app.get('/search/:id', (req, res) => {
   }, []);
 
   const similiarProducts = Object.entries(sort).slice(0, limit);
-
+  
   res.send({ status: 200, price, category, id, similiarProducts });
 })
 
 /***************** POST *****************/
-app.post('/createproduct', (req, _) => {
-  const name = req.body.name;
-  const category = req.body.category;
-  const price = req.body.price;
+app.post('/createproduct', (req, res) => {
+  const { name, category, price } = req.body;
 
   const newEntry = {
     id: uuidv4(),
