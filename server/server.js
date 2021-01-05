@@ -51,16 +51,13 @@ app.get('/search/:id', (req, res) => {
   const found = products.find(product => product.id === id);
   const { price, category } = found;
 
-  const sort = products.reduce((acc, cVal) => {
-    if (cVal.category === category && cVal.price >= price) {
-      acc.push(cVal);
-    }
-    return acc;
-  }, []);
-
-  const similiarProducts = Object.entries(sort).slice(0, limit);
+  // Example search: http://localhost:3001/search/4752d68c-d5b0-411d-b588-3c09550ba597
+  const sort = products
+    .map(product => ({...product, priceDifference: Math.abs(product.price - price)}))
+    .sort((a,b) => a.priceDifference - b.priceDifference)
+    .slice(0, limit);
   
-  res.send({ status: 200, price, category, id, similiarProducts });
+  res.send({ status: 200, price, category, id, sort });
 })
 
 /***************** POST *****************/
